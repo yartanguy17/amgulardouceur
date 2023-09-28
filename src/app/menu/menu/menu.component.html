@@ -13,14 +13,24 @@
   <div class="main" ng-app="mytodo" ng-controller="myCtrl">
     <h1>Menu</h1>
     <div class="search">
-      <input type="text"/>
+      <input type="text" />
     </div>
     <ul>
-      <li *ngFor="let menu of menus">
+      <li *ngFor="let menu of menus | paginate
+      : {
+          itemsPerPage: tableSize,
+          currentPage: page,
+          totalItems: count
+        };
+  let i = index">
         {{ menu.menu_card_desc}}
       </li>
     </ul>
     <p></p>
+    <div class="d-flex justify-content-center">
+      <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
+    </div>
   </div>
 </body>
 
